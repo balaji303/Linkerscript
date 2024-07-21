@@ -23,7 +23,7 @@ A repo to master linkerscript
 
 example:
 1. Preprocessor: gcc -E program.c -o program.i
-1. Compiler: gcc -S program.s -o program.o
+1. Compiler: gcc -S program.i -o program.s
 1. Assembler: gcc -c program.s -o program.o
 1. Linker: gcc program.o -o program
 
