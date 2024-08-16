@@ -1,0 +1,121 @@
+******************* Section 1 *******************
+
+--------- Video 1 ---------
+@balaji303 ➜ /workspaces/linker-script (dev) $ make all
+arm-none-eabi-gcc -Wall -nostdlib -fno-builtin -ffreestanding -c main.c
+arm-none-eabi-ld -s -Bsymbolic -gc-sections -Tmain.ld -static -Map=main.map -o main.elf main.o
+arm-none-eabi-readelf -a main.elf > main.txt
+
+--------- Video 4 ---------
+Linker does 3 things
+1. RESOLVE SYMBOLS/ADDRESS
+2. MERGE SECTIONS (Need script)
+3. PLACEMENT OF SECTIONS (Need script)
+If there is a global value named as int app=3 and this happens in a.c file,
+A file called b.c, uses the app inside its function. Now during the assembler stage,
+it says I dont know the address of the app variable, I will leave a hole here
+for the linker. During the linker stage, the linker scritches the hole with
+a.c file. This is what ~~~~~RESOLVE SYMBOLS/ADDRESS~~~~~
+
+If there is code, there is data. The data can be of different forms,
+    1. global,
+        1.1. Unintialised
+        1.2. Initialised
+    2. local,
+    3. static
+
+These datas will be stored in blocks
+    1. .txt -> Has the code
+    2. .bss -> Has the Unintialised variables
+    3. .data -> Has the Intialised variables
+This will be there for ever .o file, Linker merges all these sections into one file.
+This is ~~~~~MERGE SECTIONS~~~~~
+
+After the single file is created, we can place these sections anywhere in MCU,
+like internal SRAM, RAM, ROM. This process is ~~~~~PLACEMENT OF SECTIONS~~~~~
+
+--------- Video 6 ---------
+Commands used:
+1. arm-none-eabi-gcc -c main.c
+Used to create .o file using .c file
+2. arm-none-eabi-gcc -c bar.c
+Used to create .o file using .c file
+3. arm-none-eabi-objdump -D main.o
+Used to print assembly the contents of .o file
+4. arm-none-eabi-objdump -D main.o > main.s
+Used to create .s file using the contents of .o file, even .txt works instead of .s
+5. arm-none-eabi-objdump -D bar.o > bar.s
+Used to create .s file using the contents of .o file, even .txt works instead of .s
+6. arm-none-eabi-ld main.o bar.o -o main.elf
+Link and create elf file using .o files
+7. arm-none-eabi-objdump -D main.elf > main.elf.s
+Create a .s version of the elf file, so we can view in the txt editor
+8. arm-none-eabi-ld --verbose
+To view the default linker script text
+9. arm-none-eabi-ld --verbose > DefaultLinker.txt
+To create a txt file with the contents of default linker
+
+Create 2 .c files and do the above steps/Commands
+Once you completed upto step 5, we can see that .text and other sections are separated
+and at line 11 of aaa.txt file, there is bl 0, now we dont know the
+address of the function fun_retn, even the value of x is unknown at line 22.
+One thing to observe is both the function starts at 0x000 which is wrong.
+Value of X in line 18 at bbb.txt file is 0x0 which is wrong
+While doing the step 6 we get a warning that as per default,
+we are starting at 0x8000. Check the default linker file to know more, at line 19.
+Since we cant see the contents of elf file we create a txt version of it.
+Do step 7.
+To view the default linker do step 8 and 9
+
+--------- Video 8 ---------
+Create a c program with different kind of variables.
+
+Commands used:
+1. arm-none-eabi-gcc -c main.c
+Used to create .o file using .c file
+2. arm-none-eabi-objdump -D main.o
+Used to print assembly the contents of .o file
+3. arm-none-eabi-objdump -D main.o > main.s
+Used to create .s file using the contents of .o file, even .txt works instead of .s
+4. arm-none-eabi-ld main.o -o main.elf
+Link and create elf file using .o files
+5. arm-none-eabi-objdump -D main.elf > main.elf.s
+Create a .s version of the elf file, so we can view in the txt editor
+
+--------- Video 9 ---------
+Repeat all the steps that are done in Video8
+0. arm-none-eabi-
+Prints all subcommmands
+1. arm-none-eabi-nm --help
+Prints the help Commands
+2. arm-none-eabi-nm main.elf
+Prints all symbol in main.elf
+3. arm-none-eabi-objdump -D main.elf
+dumps the file info related to obj files
+4. arm-none-eabi-objdump -f main.elf
+dumps the file header
+5. arm-none-eabi-readelf -a main.elf
+Prints all the contents of elf file with header and body
+
+Elf stands for Executable and Linkable file format
+********************* 1 End *********************
+******************* Section 2 *******************
+--------- Video 13 ---------
+Consider this is a memory block, whose start address is 0xA000
+ and length is 0x1000
+0xA000 - -----
+         |   |
+         |   |
+         |   |
+0x1000 - -----
+
+Inside memory Banks:
+    SOME_NAME : ORIGIN = 0XA000 , LENGTH = 0x1000
+This is the syntax for the memory region where,
+    ORIGIN is the starting address of the region and
+    LENGTH is the length of the region
+    SEMICOLN is not required
+
+For memory,
+    MEMORY { ***here goes the line 113*** }
+********************* 2 End *********************

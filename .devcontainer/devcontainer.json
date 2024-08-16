@@ -1,43 +1,68 @@
-{
-    "build": { "dockerfile": "Dockerfile"},
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "editor.fontSize": 16,
-          "terminal.integrated.fontSize": 16,
-          "workbench.iconTheme": "vs-seti",
-          "editor.minimap.enabled": false,
-          "workbench.colorTheme": "MacOS Modern Dark - Ventura Xcode Default",
-          "workbench.preferredDarkColorTheme": "MacOS Modern Dark - Ventura Xcode Default",
-          "editor.wordWrapColumn": 120,
-          "workbench.startupEditor": "none",
-          "editor.useTabStops": false,
-          "files.trimTrailingWhitespace": true,
-          "git.autorefresh": false,
-          "terminal.integrated.cursorBlinking": true,
-          "terminal.integrated.cursorStyle": "line",
-          "debug.console.fontSize": 16,
-          "editor.rulers": [
-              120
-          ],
-          "terminal.integrated.sendKeybindingsToShell": true,
-          "extensions.ignoreRecommendations": true,
-          "remote.autoForwardPorts": false
-        },
-        "extensions": [
-            "ZixuanWang.linkerscript",
-            "ms-vscode.cpptools",
-            "davidbwaters.macos-modern-theme",
-            "maziac.hex-hover-converter",
-            "ms-vscode.hexeditor",
-            "trond-snekvik.gnu-mapfiles",
-            "esbenp.prettier-vscode",           // Code formatter for consistent code style
-            "DavidAnson.vscode-markdownlint",   // Linter for markdown files
-            "BeardedBear.beardedicons",         // Icon theme for the file explorer
-            "donjayamanne.githistory",          // Extension to view git history in a graphical way
-            "ms-azuretools.vscode-docker",      // Docker support for managing containers, images, and registries
-            "tonybaloney.vscode-pets"           // Fun extension that adds pets to your editor
-          ]
+
+        {
+          // The name of the development container
+          "name": "Balaji Dev Container",
+      
+          // Specifies the build options for the Docker container
+          "build": 
+          { 
+              // The name of the Dockerfile used to build the container image
+              "dockerfile": "BalajiDockerfile"
+          },    
+      
+          // Customizations specific to Visual Studio Code
+          "customizations": 
+          {
+              "vscode":
+              {
+                  "settings": 
+                  {
+                    "editor.fontSize": 16,
+                    "terminal.integrated.fontSize": 16,
+                    "workbench.iconTheme": "vs-seti",
+                    "editor.minimap.enabled": false,
+                    "workbench.colorTheme": "MacOS Modern Dark - Ventura Xcode Default",
+                    "workbench.preferredDarkColorTheme": "MacOS Modern Dark - Ventura Xcode Default",
+                    "editor.wordWrapColumn": 120,
+                    "workbench.startupEditor": "none",
+                    "editor.useTabStops": false,
+                    "files.trimTrailingWhitespace": true,
+                    "git.autorefresh": false,
+                    "terminal.integrated.cursorBlinking": true,
+                    "terminal.integrated.cursorStyle": "line",
+                    "debug.console.fontSize": 16,
+                    "editor.rulers": [
+                        120
+                    ],
+                    "terminal.integrated.sendKeybindingsToShell": true,
+                    "extensions.ignoreRecommendations": true,
+                    "remote.autoForwardPorts": false
+                  },
+                  // Extensions to be installed in the container
+                  "extensions":
+                  [
+                    "ZixuanWang.linkerscript",
+                    "ms-vscode.cpptools",
+                    "davidbwaters.macos-modern-theme",
+                    "maziac.hex-hover-converter",
+                    "ms-vscode.hexeditor",
+                    "trond-snekvik.gnu-mapfiles",
+                    "esbenp.prettier-vscode",           // Code formatter for consistent code style
+                    "DavidAnson.vscode-markdownlint",   // Linter for markdown files
+                    "BeardedBear.beardedicons",         // Icon theme for the file explorer
+                    "donjayamanne.githistory",          // Extension to view git history in a graphical way
+                    "ms-azuretools.vscode-docker",      // Docker support for managing containers, images, and registries
+                    "tonybaloney.vscode-pets"           // Fun extension that adds pets to your editor
+                  ]
+              }
+          },
+    
+        // Command to run after the container is created
+        "postCreateCommand": "pip install -r requirements.txt",
+
+        // Command to run each time the container starts
+        "postStartCommand": "echo 'Welcome to the development container of Balaji!👋'",
+
+        // Command to run each time a new terminal is created
+        "postAttachCommand": "echo 'New terminal session started!'"
       }
-    }
-  }
