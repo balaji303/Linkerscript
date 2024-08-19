@@ -32,7 +32,9 @@ RUN sudo apt-get install --no-install-recommends -y \
   # Superuser do command
   sudo \                          
   # GNU Debugger with multi-architecture support
-  gdb-multiarch \                 
+  gdb-multiarch \
+  # GCC for arm-BareMetal (No OS is none)-Embedded App Binary Interface
+  gcc-arm-none-eabi \                 
   # GCC for RISC-V (64-bit)
   gcc-riscv64-unknown-elf \       
   # Common binary utilities

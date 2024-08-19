@@ -17,20 +17,16 @@
               {
                   "settings": 
                   {
-                    "editor.fontSize": 16,
-                    "terminal.integrated.fontSize": 16,
-                    "workbench.iconTheme": "vs-seti",
-                    "editor.minimap.enabled": false,
+                    "editor.minimap.enabled": true,
                     "workbench.colorTheme": "MacOS Modern Dark - Ventura Xcode Default",
                     "workbench.preferredDarkColorTheme": "MacOS Modern Dark - Ventura Xcode Default",
                     "editor.wordWrapColumn": 120,
                     "workbench.startupEditor": "none",
                     "editor.useTabStops": false,
                     "files.trimTrailingWhitespace": true,
-                    "git.autorefresh": false,
                     "terminal.integrated.cursorBlinking": true,
                     "terminal.integrated.cursorStyle": "line",
-                    "debug.console.fontSize": 16,
+                    "debug.console.fontSize": 22,
                     "editor.rulers": [
                         120
                     ],
@@ -41,19 +37,18 @@
                   // Extensions to be installed in the container
                   "extensions":
                   [
-                    "ZixuanWang.linkerscript",
-                    "ms-vscode.cpptools",
-                    "davidbwaters.macos-modern-theme",
-                    "maziac.hex-hover-converter",
-                    "ms-vscode.hexeditor",
-                    "trond-snekvik.gnu-mapfiles",
-                    "esbenp.prettier-vscode",           // Code formatter for consistent code style
-                    "DavidAnson.vscode-markdownlint",   // Linter for markdown files
-                    "BeardedBear.beardedicons",         // Icon theme for the file explorer
-                    "donjayamanne.githistory",          // Extension to view git history in a graphical way
-                    "ms-azuretools.vscode-docker",      // Docker support for managing containers, images, and registries
-                    "tonybaloney.vscode-pets"           // Fun extension that adds pets to your editor
-                  ]
+                    "ZixuanWang.linkerscript",               // Extension for syntax highlighting and validation of linker scripts
+                    "ms-vscode.cpptools",                    // C/C++ IntelliSense, debugging, and code browsing support
+                    "maziac.hex-hover-converter",            // Converts hex values to different formats on hover
+                    "ms-vscode.hexeditor",                   // Hex editor for viewing and editing files in hexadecimal format
+                    "trond-snekvik.gnu-mapfiles",            // Syntax highlighting and features for GNU linker map files
+                    "esbenp.prettier-vscode",                // Code formatter for consistent code style across various languages
+                    "DavidAnson.vscode-markdownlint",        // Linter for markdown files to ensure consistent formatting and style
+                    "BeardedBear.beardedicons",              // Icon theme for the file explorer, providing a visually appealing icon set
+                    "donjayamanne.githistory",               // Extension to view git history in a graphical way, including commits, branches, and files
+                    "ms-azuretools.vscode-docker",           // Docker support for managing containers, images, and registries within VS Code
+                    "tonybaloney.vscode-pets"                // Fun extension that adds pets to your editor, providing some lighthearted entertainment
+                  ]                
               }
           },
     
