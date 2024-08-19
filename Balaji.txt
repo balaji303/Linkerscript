@@ -19,10 +19,12 @@ a.c file. This is what ~~~~~RESOLVE SYMBOLS/ADDRESS~~~~~
 
 If there is code, there is data. The data can be of different forms,
     1. global,
-        1.1. Unintialised
-        1.2. Initialised
+        1.1. Unintialised,
+        1.2. Initialised.
     2. local,
-    3. static
+        2.1. Unintialised,
+        2.2. Initialised.
+    3. static.
 
 These datas will be stored in blocks
     1. .txt -> Has the code
@@ -101,6 +103,10 @@ Elf stands for Executable and Linkable file format
 ********************* 1 End *********************
 ******************* Section 2 *******************
 --------- Video 13 ---------
+For every file there is 
+    1. .data -> Collection of Initialised data
+    2. .bss  -> Collection of Unintialised data
+    3. .text -> Collection of code here foo function
 Consider this is a memory block, whose start address is 0xA000
  and length is 0x1000
 0xA000 - -----
@@ -117,5 +123,5 @@ This is the syntax for the memory region where,
     SEMICOLN is not required
 
 For memory,
-    MEMORY { ***here goes the line 113*** }
+    MEMORY { ***here goes the line 119*** }
 ********************* 2 End *********************
