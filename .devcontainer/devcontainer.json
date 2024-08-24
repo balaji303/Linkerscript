@@ -2,24 +2,23 @@
         {
           // The name of the development container
           "name": "Balaji Dev Container",
-      
+
           // Specifies the build options for the Docker container
-          "build": 
-          { 
+          "build":
+          {
               // The name of the Dockerfile used to build the container image
               "dockerfile": "BalajiDockerfile"
-          },    
-      
+          },
+
           // Customizations specific to Visual Studio Code
-          "customizations": 
+          "customizations":
           {
               "vscode":
               {
-                  "settings": 
+                  "settings":
                   {
                     "editor.minimap.enabled": true,
-                    "workbench.colorTheme": "MacOS Modern Dark - Ventura Xcode Default",
-                    "workbench.preferredDarkColorTheme": "MacOS Modern Dark - Ventura Xcode Default",
+                    "window.zoomLevel": 1.4,
                     "editor.wordWrapColumn": 120,
                     "workbench.startupEditor": "none",
                     "editor.useTabStops": false,
@@ -48,10 +47,10 @@
                     "donjayamanne.githistory",               // Extension to view git history in a graphical way, including commits, branches, and files
                     "ms-azuretools.vscode-docker",           // Docker support for managing containers, images, and registries within VS Code
                     "tonybaloney.vscode-pets"                // Fun extension that adds pets to your editor, providing some lighthearted entertainment
-                  ]                
+                  ]
               }
           },
-    
+
         // Command to run after the container is created
         "postCreateCommand": "pip install -r requirements.txt",
 

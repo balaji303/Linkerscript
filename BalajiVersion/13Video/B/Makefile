@@ -23,9 +23,13 @@ all: $(READELF_OUT)
 $(READELF_OUT): $(TARGET).elf
 	$(READELF) -a $^ > $@
 
-# output file
-main.elf: $(OBJ) $(LD_SCRIPT)
-	$(LD) -s -Bsymbolic -gc-sections -T$(LD_SCRIPT) -static -Map=$(LD_MAP) -o $@ $(OBJ)
+# output file used in SecA
+# $(TARGET).elf: $(OBJ) $(LD_SCRIPT)
+# 	$(LD) -s -Bsymbolic -gc-sections -T$(LD_SCRIPT) -static -Map=$(LD_MAP) -o $@ $(OBJ)
+
+# output file used in SecB
+$(TARGET).elf: $(OBJ) $(LD_SCRIPT)
+	$(LD) -T$(LD_SCRIPT) -Map=$(LD_MAP) -o $@ $(OBJ)
 
 %.o: %.c
 	$(GCC) -Wall -nostdlib -fno-builtin -ffreestanding -c $<
