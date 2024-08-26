@@ -129,5 +129,7 @@ In Section A of video13, the make file optimzies because the function in source 
 In Sec B of the video13, the make file optimzies is removed
 In Sec C of the video13, each sections goe to respective section, i.e., the .data goes to .data and like wise
 In Sec D of the video13, instead of SOME_NAME in linker I used balaji
-
+--------- Video 15 ---------
+Take make file from video13/B section
+In section A, Create a new file side.c and update the make file to make side.c also.
 ********************* 2 End *********************
