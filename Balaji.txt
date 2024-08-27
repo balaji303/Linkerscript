@@ -132,4 +132,5 @@ In Sec D of the video13, instead of SOME_NAME in linker I used balaji
 --------- Video 15 ---------
 Take make file from video13/B section
 In section A, Create a new file side.c and update the make file to make side.c also.
+
 ********************* 2 End *********************
