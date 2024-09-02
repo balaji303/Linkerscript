@@ -132,5 +132,21 @@ In Sec D of the video13, instead of SOME_NAME in linker I used balaji
 --------- Video 15 ---------
 Take make file from video13/B section
 In section A, Create a new file side.c and update the make file to make side.c also.
-
+we did not say liker to link side.o's content like .bss, .data and .text but its there in map file
+In section B, we extern the variables from side file to the main file. but even now we are not saying
+the linker to link side.o's content but its there in map file
+In section C, we have update the linker to discard the side.o file sections but if er run this we get
+erros that some sections are not found, next video is about solving this error.
+--------- Video 17 ---------
+Copy Paste everything from 15Video/A
+Update the Linker so as to
+Keep the data sections of both file together
+Keep the bss section of both file together
+Keep the text section of both file together
+And discard the other section such as arm and comment sections in side
+But the same other sections of main are considered
+--------- Video 18 ---------
+Copy Paste everything from 17Video/
+We already discard the other section such as arm and comment sections in side and also main
+now main's other section are also discarded
 ********************* 2 End *********************
