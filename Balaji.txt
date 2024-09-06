@@ -149,4 +149,7 @@ But the same other sections of main are considered
 Copy Paste everything from 17Video/
 We already discard the other section such as arm and comment sections in side and also main
 now main's other section are also discarded
+--------- Video 20 ---------
+Copy Paste everything from 18Video/
+In LinkerScript use * which is common for both main and side file
 ********************* 2 End *********************
