@@ -153,3 +153,12 @@ now main's other section are also discarded
 Copy Paste everything from 18Video/
 In LinkerScript use * which is common for both main and side file
 ********************* 2 End *********************
+******************* Section 3 *******************
+--------- Video 21 ---------
+In section A, Copy Paste everything from 20Video/
+Create a new variable with Initialised value in side.c file and compile, the variable appeats
+in .data section
+In section B, rename the new variable to const and compile, the variable is discarded
+This is because const variables go to .rodata section
+In section C, the ld file is modified to move rodata to new .rodata section
+********************* 3 End *********************
