@@ -14,6 +14,10 @@ Create a GitHub Codespace from this repository and once the environment is ready
     1. `.txt` saves the output of the `readelf` reading the generated `.elf`.
 1. `make clean` deletes the files generated during compilation.
 
+- [MakeFile](https://github.com/balaji303/STM32L475/blob/main/WorkSpace/002_LED_ALL/Debug/makefile)
+
+- [LinkerFile](https://github.com/balaji303/STM32L475/blob/main/WorkSpace/002_LED_ALL/STM32L475VGTX_RAM.ld)
+
 # Copyright
 
 Copyright © 2024 @Balaji303. All Rights Reserved.
