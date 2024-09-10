@@ -30,6 +30,7 @@ These datas will be stored in blocks
     1. .txt -> Has the code
     2. .bss -> Has the Unintialised variables
     3. .data -> Has the Intialised variables
+    4. .rodata -> Initialised read only i.e., Const datas
 This will be there for ever .o file, Linker merges all these sections into one file.
 This is ~~~~~MERGE SECTIONS~~~~~
 
@@ -161,4 +162,13 @@ in .data section
 In section B, rename the new variable to const and compile, the variable is discarded
 This is because const variables go to .rodata section
 In section C, the ld file is modified to move rodata to new .rodata section
+RAM section is where we have stored all the memory section as of now,
+but when we do a power cycle in the embedded device the contents of RAM is erased.
+So we need to store the memory sections in ROM, here too we have a problem, ROM is slow
+To address both the issues, we need to separated the memory sections into two different
+regions,
+ROM -> .text and .rodata
+RAM -> .data and .bss
+--------- Video 23 ---------
+Created a new memory section ROM and divided the sections
 ********************* 3 End *********************
