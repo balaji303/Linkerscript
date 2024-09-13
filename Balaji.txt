@@ -170,5 +170,29 @@ regions,
 ROM -> .text and .rodata
 RAM -> .data and .bss
 --------- Video 23 ---------
+Copy Section 21Video/C and use it for 23Video
 Created a new memory section ROM and divided the sections
+as per
+ROM -> .text and .rodata
+RAM -> .data and .bss
+Now, const is stored in ROM
+--------- Video 24 ---------
+Copy section 23Video, and use it for this
+If .data is preset in RAM,during an ongoing calculation power fails,
+The .data is erased and calculation must happen from first.
+To solve this problem, we can store everything in ROM but its slow.
+Another way is to store/Load/logical in ROM and have Virtual address
+access RAM.
+LMA -> Load Memory Address
+VMA -> Virtual Memory Address
+
+VMA AT > LMA this is the syntax
+
+Although we added AT > ROM in .data section, .bss section is also moved
+Copy section 24Video/A and use it here,
+To avoid the movement of .bss section, we have updated the linker
+by adding AT > RAM to it.
+Copy section 24Video/B and use it here for C.
+Since we may not make sure 100% of what moves where, we need to use
+VMA AT > LMA syntax for all which is the best practice.
 ********************* 3 End *********************
