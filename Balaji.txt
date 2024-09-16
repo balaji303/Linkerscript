@@ -195,4 +195,36 @@ by adding AT > RAM to it.
 Copy section 24Video/B and use it here for C.
 Since we may not make sure 100% of what moves where, we need to use
 VMA AT > LMA syntax for all which is the best practice.
+--------- Video 25 ---------
+As always copy the contents of the previous lession/video 24vIDEO/C
+Now we are going to create a variable and assign a value to it.
+Creating variable are more simple than creating a variable in c
+The . operator is used to get the addres of the current location of the
+cursor
+
+Using the dot operator we can get the start and stop of any perticulat section
+Check the linker and map files
+--------- Video 26 ---------
+copy the contents of the previous lession/video 25VIDEO
+We all know that the sections are placed in the respective memory region
+in an order as we specfy in the linker
+i.e., 1. text data (ROM alone)
+2. .rodata (ROM alone)
+3. .data (RAM and ROM)
+4. .bss (RAM alone)
+Check the linker and map file
+--------- Video 27 ---------
+copy the contents of the previous lession/video 26VIDEO
+We are going to extern the linker variables to c's source file
+and access those variables
+
+
+We are going create a function that can
+manually or programatically copy the contents
+of ROM to RAM using linker variables and access them
+
+But we need to make sure this function is called at first
+before the other functions and also Initialised bss sections to
+zero complelety
+
 ********************* 3 End *********************

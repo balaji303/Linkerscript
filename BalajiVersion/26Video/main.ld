@@ -18,22 +18,25 @@ SECTIONS
         *(.text)
     } > ROM AT > ROM
 
+    /* Const data types are considered from now */
+    .rodata : {
+        *(.rodata)
+        /* This variable is used to get the end of .rodata section
+           which is also the start of data section in ROM */
+        __variable_rodata_end = .;
+    } > ROM AT > ROM
+
     .data : {
-        /* This variable is used to get the start of .data section */
+        /* This variable is used to get the start of .data section in RAM */
         __variable_ram_start = .;
         *(.data)
-        /* This variable is used to get the end of .data section */
+        /* This variable is used to get the end of .data section in RAM */
         __variable_ram_end   = .;
     } > RAM AT > ROM
 
     .bss : {
         *(.bss)
     } > RAM AT > RAM
-
-    /* Const data types are considered from now */
-    .rodata : {
-        *(.rodata)
-    } > ROM AT > ROM
 
     /DISCARD/ : {
         *(*)
