@@ -235,4 +235,9 @@ to discard sections that are not related  to .text or .data or .bss and .rodata
 In section B, Linker's .text is updated to have secBalaji sections
 
 In section C, A new section is created to have secBalaji
+
+void __attribute__(( section("secBalaji"))) customBalaji(void)
+The weird thing in the above line is called GCC attribute
+or compiler attribute
+
 ********************* 3 End *********************
