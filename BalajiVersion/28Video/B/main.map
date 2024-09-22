@@ -1,0 +1,59 @@
+
+Discarded input sections
+
+ .comment       0x0000000000000000       0x34 main.o
+ .ARM.attributes
+                0x0000000000000000       0x2a main.o
+ .comment       0x0000000000000000       0x34 side.o
+ .ARM.attributes
+                0x0000000000000000       0x2a side.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x000000000000a000 0x0000000000001000
+ROM              0x000000000000b000 0x0000000000001000
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+
+.text           0x000000000000b000      0x130
+ *(.text)
+ .text          0x000000000000b000       0x40 main.o
+                0x000000000000b000                foo
+ .text          0x000000000000b040       0x1c side.o
+                0x000000000000b040                doo
+ *(secBalaji)
+ secBalaji      0x000000000000b05c       0xd4 main.o
+                0x000000000000b05c                customBalaji
+                0x000000000000b130                _ld_variable_text_end = .
+
+.rodata         0x000000000000b130        0x4
+ *(.rodata)
+ .rodata        0x000000000000b130        0x4 side.o
+                0x000000000000b130                Balaji
+                0x000000000000b134                _ld_variable_rodata_end = .
+
+.data           0x000000000000a000        0x4 load address 0x000000000000b134
+                0x000000000000a000                _ld_variable_data_start = .
+ *(.data)
+ .data          0x000000000000a000        0x0 main.o
+ .data          0x000000000000a000        0x4 side.o
+                0x000000000000a000                int_global
+                0x000000000000a004                _ld_variable_data_end = .
+
+.bss            0x000000000000a004        0x4
+                0x000000000000a004                _ld_variable_bss_start = .
+ *(.bss)
+ .bss           0x000000000000a004        0x0 main.o
+ .bss           0x000000000000a004        0x4 side.o
+                0x000000000000a004                unint_global
+                0x000000000000a008                _ld_variable_bss_end = .
+
+/DISCARD/
+ *(*)
+LOAD main.o
+LOAD side.o
+OUTPUT(main.elf elf32-littlearm)
+LOAD linker stubs

@@ -227,4 +227,12 @@ But we need to make sure this function is called at first
 before the other functions and also Initialised bss sections to
 zero complelety
 
+--------- Video 28 ---------
+In section A, Creating a separate section for the function customBalaji()
+in map file that sections is discarded, because we mentioned in linker script
+to discard sections that are not related  to .text or .data or .bss and .rodata
+
+In section B, Linker's .text is updated to have secBalaji sections
+
+In section C, A new section is created to have secBalaji
 ********************* 3 End *********************
