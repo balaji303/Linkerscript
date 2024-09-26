@@ -239,5 +239,64 @@ In section C, A new section is created to have secBalaji
 void __attribute__(( section("secBalaji"))) customBalaji(void)
 The weird thing in the above line is called GCC attribute
 or compiler attribute
-
 ********************* 3 End *********************
+
+******************* Section 4 *******************
+--------- Video 30 ---------
+Linker Command Language
+1. Input Files
+2. Output Files
+3. File format of Input and Output files
+4. Address of memory sections
+5. Placemenet of sections
+
+Above are the five points that linker will understand
+--------- Video 31 ---------
+LinkerScript are nothing but just a Collection of statements
+
+This section is preset in the command that is used to trigger
+the linker ----
+These statements are used to
+    1. select files,
+    2. Group the files or linking the files,
+    3. Name the Output file
+
+This section is preset inside the linker
+Two statements that plays a vital role of grouping the files are
+    1. Memory
+    2. Section
+--------- Video 32 ---------
+Experssions
+- All values are considered as either signed long intergers or unsigned long intergers,
+- All constants are intergers,
+- All C arithmetic operations are published,
+- We can reference or define and create global variables,
+- We can call specific inbuild functions,
+we can create variable and assign them values in hex
+WE can also do arithmetic calculations using the variables
+--------- Video 33 ---------
+Values
+- Intergers
+    - Negative
+    - Hex
+    - Decimal
+    - Octal
+- Suffixes like:
+    - k -> 10^3 i.e., instead of 1000, k can be used
+    - M -> 10^6 i.e., instead of 1000000, M can be used
+    - Maybe used to scale a constant
+--------- Video 34 ---------
+Symbol names
+- If not quoted, then symbol names should start with
+    - letter
+    - underscore
+    - point
+- If not quoted we need to make sure they have no conflit with
+    any keywords
+    - "SECTIONS" = RAM -> This is valid
+    - SECTIONS = RAM -> This is invalid
+- May include any letters, underscores, digits, points
+    ans hypens
+--------- Video 35 ---------
+
+********************* 4 End *********************
