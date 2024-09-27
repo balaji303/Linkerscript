@@ -298,5 +298,25 @@ Symbol names
 - May include any letters, underscores, digits, points
     ans hypens
 --------- Video 35 ---------
+Location Counter ---
+- (.) dot is called the location Counter
+- Always contains the current output location
+- It always appears in the section command
+- Appears anywhere an ordinary symbol is allowed in an Experssions
+- Assignment to dot operator has an side effect
+    - This moves the location Counter
+    - Can be used to create holes in the output section
+- Should never be moved in backwards
+--------- Video 36 ---------
+Expression Evaluation ---
+
+--------- Video 37 ---------
+Assignment operator ---
+
+--------- Video 38 ---------
+Assignment statements placement ---
+
+--------- Video 39 ---------
+Symbol types ---
 
 ********************* 4 End *********************

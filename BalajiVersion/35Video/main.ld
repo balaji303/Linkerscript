@@ -14,6 +14,7 @@ MEMORY
 
 /* A variables */
 a = 10k;
+sample = 170;
 this.is.valid = 1M;
 "this is valid" = 2M;
 /* this is not valid = 3M; */
@@ -47,6 +48,7 @@ SECTIONS
 
     .bss : {
         *(.bss)
+        . = . + sample;
     } > RAM AT > RAM
 
     /DISCARD/ : {

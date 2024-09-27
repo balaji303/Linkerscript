@@ -18,6 +18,7 @@ ROM              0x000000000000b000 0x0000000000001000
 Linker script and memory map
 
                 0x0000000000002800                a = 0x2800
+                0x00000000000000aa                sample = 0xaa
                 0x0000000000100000                this.is.valid = 0x100000
                 0x0000000000200000                this is valid = 0x200000
                 0x0000000000300000                _ThisIsValid = 0x300000
@@ -48,11 +49,13 @@ Linker script and memory map
  .data          0x000000000000a000        0x4 side.o
                 0x000000000000a000                int_global
 
-.bss            0x000000000000a004        0x4
+.bss            0x000000000000a004       0xae
  *(.bss)
  .bss           0x000000000000a004        0x0 main.o
  .bss           0x000000000000a004        0x4 side.o
                 0x000000000000a004                unint_global
+                0x000000000000a0b2                . = (. + sample)
+ *fill*         0x000000000000a008       0xaa 
 
 /DISCARD/
  *(*)
