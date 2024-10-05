@@ -308,14 +308,61 @@ Location Counter ---
     - Can be used to create holes in the output section
 - Should never be moved in backwards
 --------- Video 36 ---------
+
 Expression Evaluation ---
+- "Lazy evalution" is used for expressions.
+    - Calculates an expression when absolutely necessary.
+- Needs the start address and the length of memory regions, in order to do any linking
+    - These values are coputed as soon as the command file is read
+- Values like - "symbol values" are not known until after storage allocation
 
 --------- Video 37 ---------
 Assignment operator ---
+Assignment : Defining SYMBOLS
 
+    Symbol  = expression;
+    Symbol &= expression;
+    Symbol += expression;
+    Symbol -= expression;
+    Symbol *= expression;
+    Symbol /= expression;
+
+- TWO  things distinguish assignments from other operatos in linkerscript expressions
+    - Assignment may only be used at the root of an expression
+        a = b+3 -> This is allowed
+        a + b = 3 -> This is not allowed
+    - You may place a trailing semicoln at the end of an Assignment statements
 --------- Video 38 ---------
 Assignment statements placement ---
 
+Assignment statements may appear
+1. As commands in their own right in an linker script or
+    1. Define a symbol with an absolute address
+2. As independent statements within a sections command or
+3. As part of the contents of section definition in a sections command
+    1. Defines a symbol whose address is relative to a particular section
+4. When a linker expression is evaluated and assigned to a variable, it is given either an absolute
+or a relocatable type
+    - The value is same as it will be in the output file
+    - The value is a fixed offset from the base of the section
+5. Type of expression is controlled by"
+	- Position in the script file
+		- Relocatable -> Fixed offset from the secion, relative to base of section.
+		- Absolute -> Anywhere else, it is created as an absolute value.
+				Even when assigned within the section using ABSOLUTE() function
+		- PROVIDE -> Used to define a symbol. The syntax is PROVIDE (symbol = expression)
+Arithmetic Functions ---
+- ABSOLUTE(expr) -> Returns absolure, non-relocatable value of expression expr
+- ADDR (section) -> Returns absolute address of named section.
+- LOADADDR(section) -> Returns absolure load address of the named section.
+- AUGN(expr) -> Returns the result of the current location counter (.) alinged to the next exp boundary
+	- Must be an expression whose value is a power of 2
+- DEFINED(symbol) -> Returns 1 if symbol is in the linker global symbol table and defined,
+	Example: begin = DEFINED(begin)? begin: . ;
+- NEXT(expr) -> Return the next unallocated address that is multiple of exp
+	- closely related to AUGN(exp) command,
+	- unless you use the memory command to define discontinous memory for the output file, the two functions are equivalent
+- SIZEOF(section) -> Returns size in bytes of the named section.
 --------- Video 39 ---------
 Symbol types ---
 
