@@ -1,0 +1,42 @@
+
+main.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000005c  0000b000  0000b000  0000b000  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .rodata       00000004  0000b05c  0000b05c  0000b05c  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  2 .data         00000004  0000a000  0000b060  0001a000  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  3 .bss          00000004  0000a004  0000a004  0000a004  2**2
+                  ALLOC
+
+Disassembly of section .text:
+
+0000b000 <foo>:
+    b000:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    b004:	e28db000 	add	fp, sp, #0
+    b008:	e24dd00c 	sub	sp, sp, #12
+    b00c:	e59f3024 	ldr	r3, [pc, #36]	; b038 <foo+0x38>
+    b010:	e5932000 	ldr	r2, [r3]
+    b014:	e59f3020 	ldr	r3, [pc, #32]	; b03c <foo+0x3c>
+    b018:	e5933000 	ldr	r3, [r3]
+    b01c:	e0823003 	add	r3, r2, r3
+    b020:	e50b3008 	str	r3, [fp, #-8]
+    b024:	e51b3008 	ldr	r3, [fp, #-8]
+    b028:	e1a00003 	mov	r0, r3
+    b02c:	e28bd000 	add	sp, fp, #0
+    b030:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
+    b034:	e12fff1e 	bx	lr
+    b038:	0000a000 	.word	0x0000a000
+    b03c:	0000a004 	.word	0x0000a004
+
+0000b040 <doo>:
+    b040:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    b044:	e28db000 	add	fp, sp, #0
+    b048:	e3a03064 	mov	r3, #100	; 0x64
+    b04c:	e1a00003 	mov	r0, r3
+    b050:	e28bd000 	add	sp, fp, #0
+    b054:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
+    b058:	e12fff1e 	bx	lr

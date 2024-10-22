@@ -367,3 +367,14 @@ Arithmetic Functions ---
 Symbol types ---
 
 ********************* 4 End *********************
+-------- Things I leared from STM32CubeIDE ------------
+@balaji303 ➜ /workspaces/Linkerscript/BalajiVersion/26Video (dev) $ arm-none-eabi-size main.elf
+   text    data     bss     dec     hex filename
+     96       4       4     104      68 main.elf
+@balaji303 ➜ /workspaces/Linkerscript/BalajiVersion/26Video (dev) $ arm-none-eabi-objdump -h -S  main.elf
+> "main.list"
+@balaji303 ➜ /workspaces/Linkerscript/BalajiVersion/26Video (dev) $ arm-none-eabi-objcopy  -O ihex  main.el
+f  "main.hex"
+
+We can create hex file and list file and also get the size of each sections as print
+------------------------------------------------------
