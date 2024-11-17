@@ -1,0 +1,64 @@
+
+Discarded input sections
+
+ .text          0x0000000000000000       0x1c side.o
+ .data          0x0000000000000000        0x4 side.o
+ .bss           0x0000000000000000        0x4 side.o
+ .comment       0x0000000000000000       0x34 side.o
+ .ARM.attributes
+                0x0000000000000000       0x2a side.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+SOME_NAME        0x000000000000a000 0x0000000000001000
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+
+.text           0x000000000000a000       0x40
+ main.o(.text)
+ .text          0x000000000000a000       0x40 main.o
+                0x000000000000a000                foo
+ main.o(.data)
+ .data          0x000000000000a040        0x0 main.o
+ main.o(.bss)
+ .bss           0x000000000000a040        0x0 main.o
+
+.glue_7         0x000000000000a040        0x0
+ .glue_7        0x000000000000a040        0x0 linker stubs
+
+.glue_7t        0x000000000000a040        0x0
+ .glue_7t       0x000000000000a040        0x0 linker stubs
+
+.vfp11_veneer   0x000000000000a040        0x0
+ .vfp11_veneer  0x000000000000a040        0x0 linker stubs
+
+.v4_bx          0x000000000000a040        0x0
+ .v4_bx         0x000000000000a040        0x0 linker stubs
+
+.iplt           0x000000000000a040        0x0
+ .iplt          0x000000000000a040        0x0 main.o
+
+.igot.plt       0x000000000000a040        0x0
+ .igot.plt      0x000000000000a040        0x0 main.o
+
+.rel.dyn        0x000000000000a040        0x0
+ .rel.iplt      0x000000000000a040        0x0 main.o
+
+/DISCARD/
+ side.o(*)
+LOAD main.o
+LOAD side.o
+OUTPUT(main.elf elf32-littlearm)
+LOAD linker stubs
+
+.comment        0x0000000000000000       0x33
+ .comment       0x0000000000000000       0x33 main.o
+                                         0x34 (size before relaxing)
+
+.ARM.attributes
+                0x0000000000000000       0x2a
+ .ARM.attributes
+                0x0000000000000000       0x2a main.o

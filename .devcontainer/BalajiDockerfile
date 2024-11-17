@@ -1,0 +1,95 @@
+# Use the base image for Visual Studio Code dev containers with Ubuntu
+FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu
+
+# Define build arguments for user details and Git configuration
+ARG USER_NAME="balaji303"
+ARG USER_PASSWORD="123456789"
+ARG GIT_NAME="Balaji"
+ARG GIT_EMAIL="balajimail@zoho.com"
+
+# Set environment variables for user details and container image version
+ENV USER_NAME $USER_NAME
+ENV USER_PASSWORD $USER_PASSWORD
+ENV CONTAINER_IMAGE_VER=v1.0.0
+ENV DEBIAN_FRONTEND=interactive
+
+# Create a new user with the specified username, assign a shell, and set up a home directory
+RUN set -x && \ 
+    adduser --shell /bin/zsh --home /home/$USER_NAME --gecos "User" $USER_NAME && \
+    # Set the user’s password
+    echo "${USER_NAME}:${USER_PASSWORD}" | chpasswd && \
+    # Add the user to the sudo group
+    usermod -aG sudo $USER_NAME && \
+    adduser $USER_NAME sudo
+
+# Update the package list to get the latest information on available packages
+RUN sudo apt-get update
+
+# Install essential packages and tools required for development
+RUN sudo apt-get install --no-install-recommends -y \
+  # Common CA certificates
+  ca-certificates \               
+  # Superuser do command
+  sudo \                          
+  # GNU Debugger with multi-architecture support
+  gdb-multiarch \
+  # GCC for arm-BareMetal (No OS is none)-Embedded App Binary Interface
+  gcc-arm-none-eabi \                 
+  # GCC for RISC-V (64-bit)
+  gcc-riscv64-unknown-elf \       
+  # Common binary utilities
+  binutils-common \               
+  # Utility for directing compilation
+  make \                          
+  # Tool for transferring data with URLs
+  curl \                          
+  # Git version control system
+  git-core \                      
+  # Tool for downloading files from the web
+  wget \                          
+  # Simple text editor
+  nano \                          
+  # Secure Shell client
+  ssh \                           
+  # Displays directory structure in a tree format
+  tree \                          
+  # Terminal pager for viewing files
+  less \                          
+  # Essential tools for building software (compiler, linker, etc.)
+  build-essential \               
+  # Python 3 interpreter
+  python3 \                       
+  # Header files and a static library for Python 3
+  python3-dev \                   
+  # Package installer for Python 3
+  python3-pip \                   
+  # Collection of binary tools
+  binutils \                      
+  # Utility for compiling and building software
+  make \                          
+  # Binary utilities for RISC-V (64-bit) Linux
+  binutils-riscv64-linux-gnu \    
+  # QEMU emulator for RISC-V 32-bit
+  qemu-system-riscv32 \           
+  # Z shell
+  zsh \                           
+  # Hex dump utility
+  xxd \                           
+  # Tool for tracing system calls
+  strace \                        
+  # Manual pages viewer
+  man                             
+
+# Install localization and man pages that are typically removed in minimal installs
+RUN yes | unminimize
+
+# Switch to the newly created user for the following commands
+USER $USER_NAME
+
+# Set terminal type to xterm for color support
+ENV TERM xterm
+
+# Configure Git with the user’s email globally
+RUN git config --global user.email "$GIT_EMAIL"
+# Configure Git with the user’s name globally
+RUN git config --global user.name "$GIT_NAME"

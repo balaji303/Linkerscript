@@ -1,0 +1,380 @@
+******************* Section 1 *******************
+
+--------- Video 1 ---------
+@balaji303 ➜ /workspaces/linker-script (dev) $ make all
+arm-none-eabi-gcc -Wall -nostdlib -fno-builtin -ffreestanding -c main.c
+arm-none-eabi-ld -s -Bsymbolic -gc-sections -Tmain.ld -static -Map=main.map -o main.elf main.o
+arm-none-eabi-readelf -a main.elf > main.txt
+
+--------- Video 4 ---------
+Linker does 3 things
+1. RESOLVE SYMBOLS/ADDRESS
+2. MERGE SECTIONS (Need script)
+3. PLACEMENT OF SECTIONS (Need script)
+If there is a global value named as int app=3 and this happens in a.c file,
+A file called b.c, uses the app inside its function. Now during the assembler stage,
+it says I dont know the address of the app variable, I will leave a hole here
+for the linker. During the linker stage, the linker scritches the hole with
+a.c file. This is what ~~~~~RESOLVE SYMBOLS/ADDRESS~~~~~
+
+If there is code, there is data. The data can be of different forms,
+    1. global,
+        1.1. Unintialised,
+        1.2. Initialised.
+    2. local,
+        2.1. Unintialised,
+        2.2. Initialised.
+    3. static.
+
+These datas will be stored in blocks
+    1. .txt -> Has the code
+    2. .bss -> Has the Unintialised variables
+    3. .data -> Has the Intialised variables
+    4. .rodata -> Initialised read only i.e., Const datas
+This will be there for ever .o file, Linker merges all these sections into one file.
+This is ~~~~~MERGE SECTIONS~~~~~
+
+After the single file is created, we can place these sections anywhere in MCU,
+like internal SRAM, RAM, ROM. This process is ~~~~~PLACEMENT OF SECTIONS~~~~~
+
+--------- Video 6 ---------
+Commands used:
+1. arm-none-eabi-gcc -c main.c
+Used to create .o file using .c file
+2. arm-none-eabi-gcc -c bar.c
+Used to create .o file using .c file
+3. arm-none-eabi-objdump -D main.o
+Used to print assembly the contents of .o file
+4. arm-none-eabi-objdump -D main.o > main.s
+Used to create .s file using the contents of .o file, even .txt works instead of .s
+5. arm-none-eabi-objdump -D bar.o > bar.s
+Used to create .s file using the contents of .o file, even .txt works instead of .s
+6. arm-none-eabi-ld main.o bar.o -o main.elf
+Link and create elf file using .o files
+7. arm-none-eabi-objdump -D main.elf > main.elf.s
+Create a .s version of the elf file, so we can view in the txt editor
+8. arm-none-eabi-ld --verbose
+To view the default linker script text
+9. arm-none-eabi-ld --verbose > DefaultLinker.txt
+To create a txt file with the contents of default linker
+
+Create 2 .c files and do the above steps/Commands
+Once you completed upto step 5, we can see that .text and other sections are separated
+and at line 11 of aaa.txt file, there is bl 0, now we dont know the
+address of the function fun_retn, even the value of x is unknown at line 22.
+One thing to observe is both the function starts at 0x000 which is wrong.
+Value of X in line 18 at bbb.txt file is 0x0 which is wrong
+While doing the step 6 we get a warning that as per default,
+we are starting at 0x8000. Check the default linker file to know more, at line 19.
+Since we cant see the contents of elf file we create a txt version of it.
+Do step 7.
+To view the default linker do step 8 and 9
+
+--------- Video 8 ---------
+Create a c program with different kind of variables.
+
+Commands used:
+1. arm-none-eabi-gcc -c main.c
+Used to create .o file using .c file
+2. arm-none-eabi-objdump -D main.o
+Used to print assembly the contents of .o file
+3. arm-none-eabi-objdump -D main.o > main.s
+Used to create .s file using the contents of .o file, even .txt works instead of .s
+4. arm-none-eabi-ld main.o -o main.elf
+Link and create elf file using .o files
+5. arm-none-eabi-objdump -D main.elf > main.elf.s
+Create a .s version of the elf file, so we can view in the txt editor
+
+--------- Video 9 ---------
+Repeat all the steps that are done in Video8
+0. arm-none-eabi-
+Prints all subcommmands
+1. arm-none-eabi-nm --help
+Prints the help Commands
+2. arm-none-eabi-nm main.elf
+Prints all symbol in main.elf
+3. arm-none-eabi-objdump -D main.elf
+dumps the file info related to obj files
+4. arm-none-eabi-objdump -f main.elf
+dumps the file header
+5. arm-none-eabi-readelf -a main.elf
+Prints all the contents of elf file with header and body
+
+Elf stands for Executable and Linkable file format
+********************* 1 End *********************
+******************* Section 2 *******************
+--------- Video 13 ---------
+For every file there is
+    1. .data -> Collection of Initialised data
+    2. .bss  -> Collection of Unintialised data
+    3. .text -> Collection of code here foo function
+Consider this is a memory block, whose start address is 0xA000
+ and length is 0x1000
+0xA000 - -----
+         |   |
+         |   |
+         |   |
+0x1000 - -----
+
+Inside memory Banks:
+    SOME_NAME : ORIGIN = 0XA000 , LENGTH = 0x1000
+This is the syntax for the memory region where,
+    ORIGIN is the starting address of the region and
+    LENGTH is the length of the region
+    SEMICOLN is not required
+
+For memory,
+    MEMORY { ***here goes the line 119*** }
+
+In Section A of video13, the make file optimzies because the function in source code, no one calls the function.
+In Sec B of the video13, the make file optimzies is removed
+In Sec C of the video13, each sections goe to respective section, i.e., the .data goes to .data and like wise
+In Sec D of the video13, instead of SOME_NAME in linker I used balaji
+--------- Video 15 ---------
+Take make file from video13/B section
+In section A, Create a new file side.c and update the make file to make side.c also.
+we did not say liker to link side.o's content like .bss, .data and .text but its there in map file
+In section B, we extern the variables from side file to the main file. but even now we are not saying
+the linker to link side.o's content but its there in map file
+In section C, we have update the linker to discard the side.o file sections but if er run this we get
+erros that some sections are not found, next video is about solving this error.
+--------- Video 17 ---------
+Copy Paste everything from 15Video/A
+Update the Linker so as to
+Keep the data sections of both file together
+Keep the bss section of both file together
+Keep the text section of both file together
+And discard the other section such as arm and comment sections in side
+But the same other sections of main are considered
+--------- Video 18 ---------
+Copy Paste everything from 17Video/
+We already discard the other section such as arm and comment sections in side and also main
+now main's other section are also discarded
+--------- Video 20 ---------
+Copy Paste everything from 18Video/
+In LinkerScript use * which is common for both main and side file
+********************* 2 End *********************
+******************* Section 3 *******************
+--------- Video 21 ---------
+In section A, Copy Paste everything from 20Video/
+Create a new variable with Initialised value in side.c file and compile, the variable appeats
+in .data section
+In section B, rename the new variable to const and compile, the variable is discarded
+This is because const variables go to .rodata section
+In section C, the ld file is modified to move rodata to new .rodata section
+RAM section is where we have stored all the memory section as of now,
+but when we do a power cycle in the embedded device the contents of RAM is erased.
+So we need to store the memory sections in ROM, here too we have a problem, ROM is slow
+To address both the issues, we need to separated the memory sections into two different
+regions,
+ROM -> .text and .rodata
+RAM -> .data and .bss
+--------- Video 23 ---------
+Copy Section 21Video/C and use it for 23Video
+Created a new memory section ROM and divided the sections
+as per
+ROM -> .text and .rodata
+RAM -> .data and .bss
+Now, const is stored in ROM
+--------- Video 24 ---------
+Copy section 23Video, and use it for this
+If .data is preset in RAM,during an ongoing calculation power fails,
+The .data is erased and calculation must happen from first.
+To solve this problem, we can store everything in ROM but its slow.
+Another way is to store/Load/logical in ROM and have Virtual address
+access RAM.
+LMA -> Load Memory Address
+VMA -> Virtual Memory Address
+
+VMA AT > LMA this is the syntax
+
+Although we added AT > ROM in .data section, .bss section is also moved
+Copy section 24Video/A and use it here,
+To avoid the movement of .bss section, we have updated the linker
+by adding AT > RAM to it.
+Copy section 24Video/B and use it here for C.
+Since we may not make sure 100% of what moves where, we need to use
+VMA AT > LMA syntax for all which is the best practice.
+--------- Video 25 ---------
+As always copy the contents of the previous lession/video 24vIDEO/C
+Now we are going to create a variable and assign a value to it.
+Creating variable are more simple than creating a variable in c
+The . operator is used to get the addres of the current location of the
+cursor
+
+Using the dot operator we can get the start and stop of any perticulat section
+Check the linker and map files
+--------- Video 26 ---------
+copy the contents of the previous lession/video 25VIDEO
+We all know that the sections are placed in the respective memory region
+in an order as we specfy in the linker
+i.e., 1. text data (ROM alone)
+2. .rodata (ROM alone)
+3. .data (RAM and ROM)
+4. .bss (RAM alone)
+Check the linker and map file
+--------- Video 27 ---------
+copy the contents of the previous lession/video 26VIDEO
+We are going to extern the linker variables to c's source file
+and access those variables
+
+
+We are going create a function that can
+manually or programatically copy the contents
+of ROM to RAM using linker variables and access them
+
+But we need to make sure this function is called at first
+before the other functions and also Initialised bss sections to
+zero complelety
+
+--------- Video 28 ---------
+In section A, Creating a separate section for the function customBalaji()
+in map file that sections is discarded, because we mentioned in linker script
+to discard sections that are not related  to .text or .data or .bss and .rodata
+
+In section B, Linker's .text is updated to have secBalaji sections
+
+In section C, A new section is created to have secBalaji
+
+void __attribute__(( section("secBalaji"))) customBalaji(void)
+The weird thing in the above line is called GCC attribute
+or compiler attribute
+********************* 3 End *********************
+
+******************* Section 4 *******************
+--------- Video 30 ---------
+Linker Command Language
+1. Input Files
+2. Output Files
+3. File format of Input and Output files
+4. Address of memory sections
+5. Placemenet of sections
+
+Above are the five points that linker will understand
+--------- Video 31 ---------
+LinkerScript are nothing but just a Collection of statements
+
+This section is preset in the command that is used to trigger
+the linker ----
+These statements are used to
+    1. select files,
+    2. Group the files or linking the files,
+    3. Name the Output file
+
+This section is preset inside the linker
+Two statements that plays a vital role of grouping the files are
+    1. Memory
+    2. Section
+--------- Video 32 ---------
+Experssions
+- All values are considered as either signed long intergers or unsigned long intergers,
+- All constants are intergers,
+- All C arithmetic operations are published,
+- We can reference or define and create global variables,
+- We can call specific inbuild functions,
+we can create variable and assign them values in hex
+WE can also do arithmetic calculations using the variables
+--------- Video 33 ---------
+Values
+- Intergers
+    - Negative
+    - Hex
+    - Decimal
+    - Octal
+- Suffixes like:
+    - k -> 10^3 i.e., instead of 1000, k can be used
+    - M -> 10^6 i.e., instead of 1000000, M can be used
+    - Maybe used to scale a constant
+--------- Video 34 ---------
+Symbol names
+- If not quoted, then symbol names should start with
+    - letter
+    - underscore
+    - point
+- If not quoted we need to make sure they have no conflit with
+    any keywords
+    - "SECTIONS" = RAM -> This is valid
+    - SECTIONS = RAM -> This is invalid
+- May include any letters, underscores, digits, points
+    ans hypens
+--------- Video 35 ---------
+Location Counter ---
+- (.) dot is called the location Counter
+- Always contains the current output location
+- It always appears in the section command
+- Appears anywhere an ordinary symbol is allowed in an Experssions
+- Assignment to dot operator has an side effect
+    - This moves the location Counter
+    - Can be used to create holes in the output section
+- Should never be moved in backwards
+--------- Video 36 ---------
+
+Expression Evaluation ---
+- "Lazy evalution" is used for expressions.
+    - Calculates an expression when absolutely necessary.
+- Needs the start address and the length of memory regions, in order to do any linking
+    - These values are coputed as soon as the command file is read
+- Values like - "symbol values" are not known until after storage allocation
+
+--------- Video 37 ---------
+Assignment operator ---
+Assignment : Defining SYMBOLS
+
+    Symbol  = expression;
+    Symbol &= expression;
+    Symbol += expression;
+    Symbol -= expression;
+    Symbol *= expression;
+    Symbol /= expression;
+
+- TWO  things distinguish assignments from other operatos in linkerscript expressions
+    - Assignment may only be used at the root of an expression
+        a = b+3 -> This is allowed
+        a + b = 3 -> This is not allowed
+    - You may place a trailing semicoln at the end of an Assignment statements
+--------- Video 38 ---------
+Assignment statements placement ---
+
+Assignment statements may appear
+1. As commands in their own right in an linker script or
+    1. Define a symbol with an absolute address
+2. As independent statements within a sections command or
+3. As part of the contents of section definition in a sections command
+    1. Defines a symbol whose address is relative to a particular section
+4. When a linker expression is evaluated and assigned to a variable, it is given either an absolute
+or a relocatable type
+    - The value is same as it will be in the output file
+    - The value is a fixed offset from the base of the section
+5. Type of expression is controlled by"
+	- Position in the script file
+		- Relocatable -> Fixed offset from the secion, relative to base of section.
+		- Absolute -> Anywhere else, it is created as an absolute value.
+				Even when assigned within the section using ABSOLUTE() function
+		- PROVIDE -> Used to define a symbol. The syntax is PROVIDE (symbol = expression)
+Arithmetic Functions ---
+- ABSOLUTE(expr) -> Returns absolure, non-relocatable value of expression expr
+- ADDR (section) -> Returns absolute address of named section.
+- LOADADDR(section) -> Returns absolure load address of the named section.
+- AUGN(expr) -> Returns the result of the current location counter (.) alinged to the next exp boundary
+	- Must be an expression whose value is a power of 2
+- DEFINED(symbol) -> Returns 1 if symbol is in the linker global symbol table and defined,
+	Example: begin = DEFINED(begin)? begin: . ;
+- NEXT(expr) -> Return the next unallocated address that is multiple of exp
+	- closely related to AUGN(exp) command,
+	- unless you use the memory command to define discontinous memory for the output file, the two functions are equivalent
+- SIZEOF(section) -> Returns size in bytes of the named section.
+--------- Video 39 ---------
+Symbol types ---
+
+********************* 4 End *********************
+-------- Things I leared from STM32CubeIDE ------------
+@balaji303 ➜ /workspaces/Linkerscript/BalajiVersion/26Video (dev) $ arm-none-eabi-size main.elf
+   text    data     bss     dec     hex filename
+     96       4       4     104      68 main.elf
+@balaji303 ➜ /workspaces/Linkerscript/BalajiVersion/26Video (dev) $ arm-none-eabi-objdump -h -S  main.elf
+> "main.list"
+@balaji303 ➜ /workspaces/Linkerscript/BalajiVersion/26Video (dev) $ arm-none-eabi-objcopy  -O ihex  main.el
+f  "main.hex"
+
+We can create hex file and list file and also get the size of each sections as print
+------------------------------------------------------

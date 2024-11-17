@@ -1,0 +1,32 @@
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 balaji.o
+ .data          0x0000000000000000        0x0 balaji.o
+ .bss           0x0000000000000000        0x0 balaji.o
+ .comment       0x0000000000000000       0x34 balaji.o
+ .ARM.attributes
+                0x0000000000000000       0x30 balaji.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD balaji.o
+OUTPUT(balaji.elf elf32-littlearm)
+LOAD linker stubs
+
+.glue_7         0x0000000000000000        0x0
+ .glue_7        0x0000000000000000        0x0 linker stubs
+
+.glue_7t        0x0000000000000000        0x0
+ .glue_7t       0x0000000000000000        0x0 linker stubs
+
+.vfp11_veneer   0x0000000000000000        0x0
+ .vfp11_veneer  0x0000000000000000        0x0 linker stubs
+
+.v4_bx          0x0000000000000000        0x0
+ .v4_bx         0x0000000000000000        0x0 linker stubs

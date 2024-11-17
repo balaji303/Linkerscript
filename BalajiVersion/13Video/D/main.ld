@@ -1,0 +1,13 @@
+MEMORY
+{
+    balaji : ORIGIN = 0xA000, LENGTH = 0x1000
+}
+
+SECTIONS
+{
+    .text : {
+        main.o (.text)
+        main.o (.data)
+        main.o (.bss)
+    } > balaji
+}

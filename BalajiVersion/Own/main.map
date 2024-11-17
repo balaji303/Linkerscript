@@ -1,0 +1,83 @@
+
+Discarded input sections
+
+ .comment       0x0000000000000000       0x34 main.o
+ .ARM.attributes
+                0x0000000000000000       0x2a main.o
+ .comment       0x0000000000000000       0x34 side.o
+ .ARM.attributes
+                0x0000000000000000       0x2a side.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x000000000000a000 0x0000000000001000
+ROM              0x000000000000b000 0x0000000000001000
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x0000000000002800                a = 0x2800
+                0x00000000000000aa                sample = 0xaa
+                0x0000000000100000                this.is.valid = 0x100000
+                0x0000000000200000                this is valid = 0x200000
+                0x0000000000300000                _ThisIsValid = 0x300000
+                0x0000000000006000                SECTIONS = 0x6000
+                0x0000000000000800                b = 0x800
+                [!provide]                        PROVIDE (_some_symbol = 0x1234)
+
+.text           0x000000000000b000       0xe0
+                0x000000000000b000                . = ALIGN (0x20)
+ *(.text)
+ .text          0x000000000000b000       0xb4 main.o
+                0x000000000000b000                uoo
+                0x000000000000b034                poo
+                0x000000000000b074                foo
+ .text          0x000000000000b0b4       0x1c side.o
+                0x000000000000b0b4                doo
+ *(.init)
+                0x000000000000e000                c = (a + b)
+                0x000000000000d000                d = (a - b)
+                0x000000000140b000                e = (a * b)
+                0x000000000000b005                f = (a / b)
+                0x000000000000b800                g = (a && b)
+                0x000000000000b800                g = (a & b)
+                0x000000000000b0e0                . = ALIGN (0x20)
+ *fill*         0x000000000000b0d0       0x10 
+
+.rodata         0x000000000000b0e0       0x20
+                0x000000000000b0e0                . = ALIGN (0x20)
+ *(.rodata)
+ .rodata        0x000000000000b0e0        0x4 side.o
+                0x000000000000b0e0                Balaji
+                0x000000000000b100                . = ALIGN (0x20)
+ *fill*         0x000000000000b0e4       0x1c 
+
+.data           0x000000000000a000       0x20 load address 0x000000000000b100
+                0x000000000000a000                . = ALIGN (0x20)
+                0x000000000000a000                _ld_variable_data_start = .
+ *(.data)
+ .data          0x000000000000a000        0x0 main.o
+ .data          0x000000000000a000        0x4 side.o
+                0x000000000000a000                int_global
+                0x000000000000a004                _ld_variable_data_end = .
+                0x000000000000a020                . = ALIGN (0x20)
+ *fill*         0x000000000000a004       0x1c 
+
+.bss            0x000000000000a020       0xc0
+                0x000000000000a020                . = ALIGN (0x20)
+ *(.bss)
+ .bss           0x000000000000a020        0x0 main.o
+ .bss           0x000000000000a020        0x4 side.o
+                0x000000000000a020                unint_global
+                0x000000000000a0ce                . = (. + sample)
+ *fill*         0x000000000000a024       0xaa 
+                0x000000000000a0e0                . = ALIGN (0x20)
+ *fill*         0x000000000000a0ce       0x12 
+
+/DISCARD/
+ *(*)
+LOAD main.o
+LOAD side.o
+OUTPUT(main.elf elf32-littlearm)
+LOAD linker stubs

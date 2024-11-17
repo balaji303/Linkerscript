@@ -1,0 +1,62 @@
+
+        {
+          // The name of the development container
+          "name": "Balaji Dev Container",
+
+          // Specifies the build options for the Docker container
+          "build":
+          {
+              // The name of the Dockerfile used to build the container image
+              "dockerfile": "BalajiDockerfile"
+          },
+
+          // Customizations specific to Visual Studio Code
+          "customizations":
+          {
+              "vscode":
+              {
+                  "settings":
+                  {
+                    "editor.minimap.enabled": true,
+                    "window.zoomLevel": 1.4,
+                    "editor.wordWrapColumn": 120,
+                    "workbench.startupEditor": "none",
+                    "editor.useTabStops": false,
+                    "files.trimTrailingWhitespace": true,
+                    "terminal.integrated.cursorBlinking": true,
+                    "terminal.integrated.cursorStyle": "line",
+                    "debug.console.fontSize": 22,
+                    "editor.rulers": [
+                        120
+                    ],
+                    "terminal.integrated.sendKeybindingsToShell": true,
+                    "extensions.ignoreRecommendations": true,
+                    "remote.autoForwardPorts": false
+                  },
+                  // Extensions to be installed in the container
+                  "extensions":
+                  [
+                    "ZixuanWang.linkerscript",               // Extension for syntax highlighting and validation of linker scripts
+                    "ms-vscode.cpptools",                    // C/C++ IntelliSense, debugging, and code browsing support
+                    "maziac.hex-hover-converter",            // Converts hex values to different formats on hover
+                    "ms-vscode.hexeditor",                   // Hex editor for viewing and editing files in hexadecimal format
+                    "trond-snekvik.gnu-mapfiles",            // Syntax highlighting and features for GNU linker map files
+                    "esbenp.prettier-vscode",                // Code formatter for consistent code style across various languages
+                    "DavidAnson.vscode-markdownlint",        // Linter for markdown files to ensure consistent formatting and style
+                    "BeardedBear.beardedicons",              // Icon theme for the file explorer, providing a visually appealing icon set
+                    "donjayamanne.githistory",               // Extension to view git history in a graphical way, including commits, branches, and files
+                    "ms-azuretools.vscode-docker",           // Docker support for managing containers, images, and registries within VS Code
+                    "tonybaloney.vscode-pets"                // Fun extension that adds pets to your editor, providing some lighthearted entertainment
+                  ]
+              }
+          },
+
+        // Command to run after the container is created
+        "postCreateCommand": "pip install -r requirements.txt",
+
+        // Command to run each time the container starts
+        "postStartCommand": "echo 'Welcome to the development container of Balaji!👋'",
+
+        // Command to run each time a new terminal is created
+        "postAttachCommand": "echo 'New terminal session started!'"
+      }

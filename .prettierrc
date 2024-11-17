@@ -1,0 +1,17 @@
+// Use Shift + Alt + F to run prettier
+{
+  // Automatically add semicolons at the end of statements
+  "semi": true,
+
+  // Use single quotes instead of double quotes for strings
+  "singleQuote": true,
+
+  // Set the number of spaces per indentation level to 2
+  "tabWidth": 2,
+
+  // Wrap lines that exceed 80 characters
+  "printWidth": 80,
+
+  // Add trailing commas where valid in ES5 (objects, arrays, etc.)
+  "trailingComma": "es5"
+}

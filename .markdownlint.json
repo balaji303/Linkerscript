@@ -1,0 +1,13 @@
+// Ctrl + Shift + P -> Then select MarkdownLint entire workspace
+{
+  "default": true,
+  // Disable line length rule
+  "MD013": false,
+  // Allow inline HTML (commented out)
+  // "MD033": {
+  //   "level": "warning"
+  // },
+  // Disable the requirement for a top-level header in each document
+  "MD041": false
+}
+

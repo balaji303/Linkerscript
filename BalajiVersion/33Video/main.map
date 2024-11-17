@@ -1,0 +1,58 @@
+
+Discarded input sections
+
+ .comment       0x0000000000000000       0x34 main.o
+ .ARM.attributes
+                0x0000000000000000       0x2a main.o
+ .comment       0x0000000000000000       0x34 side.o
+ .ARM.attributes
+                0x0000000000000000       0x2a side.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x000000000000a000 0x0000000000001000
+ROM              0x000000000000b000 0x0000000000001000
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x0000000000002800                a = 0x2800
+                0x0000000000000800                b = 0x800
+
+.text           0x000000000000b000       0x5c
+ *(.text)
+ .text          0x000000000000b000       0x40 main.o
+                0x000000000000b000                foo
+ .text          0x000000000000b040       0x1c side.o
+                0x000000000000b040                doo
+                0x000000000000e000                c = (a + b)
+                0x000000000000d000                d = (a - b)
+                0x000000000140b000                e = (a * b)
+                0x000000000000b005                f = (a / b)
+                0x000000000000b800                g = (a && b)
+                0x000000000000b800                g = (a & b)
+
+.rodata         0x000000000000b05c        0x4
+ *(.rodata)
+ .rodata        0x000000000000b05c        0x4 side.o
+                0x000000000000b05c                Balaji
+
+.data           0x000000000000a000        0x4 load address 0x000000000000b060
+ *(.data)
+ .data          0x000000000000a000        0x0 main.o
+ .data          0x000000000000a000        0x4 side.o
+                0x000000000000a000                int_global
+
+.bss            0x000000000000a004        0x4
+ *(.bss)
+ .bss           0x000000000000a004        0x0 main.o
+ .bss           0x000000000000a004        0x4 side.o
+                0x000000000000a004                unint_global
+
+/DISCARD/
+ *(*)
+LOAD main.o
+LOAD side.o
+OUTPUT(main.elf elf32-littlearm)
+LOAD linker stubs
